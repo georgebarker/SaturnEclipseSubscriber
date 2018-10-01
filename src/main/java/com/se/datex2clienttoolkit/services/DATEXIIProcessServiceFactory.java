@@ -9,7 +9,8 @@ import com.se.datex2.common.FeedType;
 
 /**
  * 
- * This service factory returns the correct DATEX II process service for given Feed Type.
+ * This service factory returns the correct DATEX II process service for given
+ * Feed Type.
  * 
  * @author Saturn Eclipse Limited
  *
@@ -17,44 +18,44 @@ import com.se.datex2.common.FeedType;
 @Service
 public class DATEXIIProcessServiceFactory {
 	final Logger log = LoggerFactory.getLogger(DATEXIIProcessServiceFactory.class);
-	
+
 	@Autowired
 	private DATEXIIVMSProcessService datexiiVMSProcessService;
-	
+
 	@Autowired
 	private DATEXIIANPRProcessService datexiiANPRProcessService;
-	
+
 	@Autowired
 	private DATEXIIMIDASProcessService datexiiMIDASProcessService;
-	
+
 	@Autowired
 	private DATEXIITMUProcessService datexiiTMUProcessService;
-	
+
 	@Autowired
 	private DATEXIIFusedSensorOnlyProcessService datexiiFusedSensorOnlyProcessService;
-	
+
 	@Autowired
 	private DATEXIIFusedFVDAndSensorProcessService datexiiFusedFVDAndSensorProcessService;
-	
+
 	@Autowired
 	private DATEXIIModelUpdateNotificationProcessService datexiiModelUpdateNotificationProcessService;
-	
+
 	@Autowired
 	private DATEXIIEventProcessService datexiiEventProcessService;
-	
+
 	@Autowired
 	private DATEXIINTISModelVMSProcessService datexiiNTISModelVMSProcessService;
-	
+
 	@Autowired
 	private DATEXIINTISModelMeasurementSitesProcessService datexiiNTISModelMeasurementSitesProcessService;
-	
+
 	@Autowired
 	private DATEXIINTISModelPredefinedLocationProcessService datexiiNTISModelPredefinedLocationProcessService;
-	
-	public DATEXIIProcessService getDATEXIIProcessService(FeedType feedType){
-		
+
+	public DATEXIIProcessService getDATEXIIProcessService(FeedType feedType) {
+
 		DATEXIIProcessService datexiiProcessService = null;
-		switch(feedType){
+		switch (feedType) {
 		case VMS:
 			datexiiProcessService = datexiiVMSProcessService;
 			break;

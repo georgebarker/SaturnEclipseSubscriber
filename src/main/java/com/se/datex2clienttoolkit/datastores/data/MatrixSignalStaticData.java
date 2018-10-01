@@ -9,11 +9,12 @@ public class MatrixSignalStaticData implements DataObject {
 	private String matrixSignalStaticIdentifier;
 	private Date publicationTime;
 	private VmsUnitRecord matrixSignalStaticData;
-	
+
 	public MatrixSignalStaticData() {
 	}
-	
-	public MatrixSignalStaticData(String matrixSignalStaticIdentifier, Date publicationTime, VmsUnitRecord matrixSignalStaticData) {
+
+	public MatrixSignalStaticData(String matrixSignalStaticIdentifier, Date publicationTime,
+			VmsUnitRecord matrixSignalStaticData) {
 		super();
 		this.publicationTime = publicationTime;
 		this.matrixSignalStaticIdentifier = matrixSignalStaticIdentifier;
@@ -23,7 +24,7 @@ public class MatrixSignalStaticData implements DataObject {
 	public String getMatrixSignalStaticIdentifier() {
 		return matrixSignalStaticIdentifier;
 	}
-	
+
 	public Date getPublicationTime() {
 		return publicationTime;
 	}
@@ -31,5 +32,5 @@ public class MatrixSignalStaticData implements DataObject {
 	public VmsUnitRecord getMatrixSignalStaticData() {
 		return matrixSignalStaticData;
 	}
-	
+
 }

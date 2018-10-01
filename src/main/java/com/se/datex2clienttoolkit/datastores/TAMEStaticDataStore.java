@@ -9,36 +9,37 @@ import com.se.datex2clienttoolkit.datastores.data.TAMEStaticData;
 
 /**
  * 
- * This data store contains the TAMEStatic data indexed by measurement site record ID.
+ * This data store contains the TAMEStatic data indexed by measurement site
+ * record ID.
  * 
  * @author Saturn Eclipse Limited
  *
  */
 @Component
-public class TAMEStaticDataStore extends DataStore{
+public class TAMEStaticDataStore extends DataStore {
 
-	public TAMEStaticDataStore(){
+	public TAMEStaticDataStore() {
 		super();
 	}
-		
-	public synchronized void updateData(DataObject data){
-		TAMEStaticData measurementSiteStaticData = (TAMEStaticData)data; 
-		String measurementSiteStaticIdentifier=measurementSiteStaticData.getTAMEStaticIdentifier(); 
-		if (dataMap.containsKey(measurementSiteStaticIdentifier)){
+
+	public synchronized void updateData(DataObject data) {
+		TAMEStaticData measurementSiteStaticData = (TAMEStaticData) data;
+		String measurementSiteStaticIdentifier = measurementSiteStaticData.getTAMEStaticIdentifier();
+		if (dataMap.containsKey(measurementSiteStaticIdentifier)) {
 			dataMap.remove(measurementSiteStaticIdentifier);
 			dataMap.put(measurementSiteStaticIdentifier, measurementSiteStaticData);
-		}else{
+		} else {
 			dataMap.put(measurementSiteStaticIdentifier, measurementSiteStaticData);
 		}
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public synchronized LinkedList<TAMEStaticData> getAllTAMEStaticData(){
+	public synchronized LinkedList<TAMEStaticData> getAllTAMEStaticData() {
 		return new LinkedList(dataMap.values());
 	}
-	
-	public synchronized void removeData(String measurementSiteStaticIdentifier){
-		if (dataMap.containsKey(measurementSiteStaticIdentifier)){
+
+	public synchronized void removeData(String measurementSiteStaticIdentifier) {
+		if (dataMap.containsKey(measurementSiteStaticIdentifier)) {
 			dataMap.remove(measurementSiteStaticIdentifier);
 		}
 	}

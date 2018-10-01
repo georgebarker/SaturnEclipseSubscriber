@@ -8,12 +8,11 @@ public class MIDASData implements DataObject {
 	private String midasIdentifier;
 	private Date publicationTime;
 	private SiteMeasurements midasData;
-	
+
 	public MIDASData() {
 	}
-	
-	public MIDASData(String midasIdentifier, Date publicationTime,
-			SiteMeasurements midasData) {
+
+	public MIDASData(String midasIdentifier, Date publicationTime, SiteMeasurements midasData) {
 		super();
 		this.midasIdentifier = midasIdentifier;
 		this.publicationTime = publicationTime;
@@ -30,5 +29,5 @@ public class MIDASData implements DataObject {
 
 	public SiteMeasurements getMIDASData() {
 		return midasData;
-	}	
+	}
 }

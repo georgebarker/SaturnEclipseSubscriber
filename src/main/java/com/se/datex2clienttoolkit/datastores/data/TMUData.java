@@ -9,12 +9,11 @@ public class TMUData implements DataObject {
 	private String tmuIdentifier;
 	private Date publicationTime;
 	private List<SiteMeasurements> tmuData;
-	
+
 	public TMUData() {
 	}
-	
-	public TMUData(String tmuIdentifier, Date publicationTime,
-			List<SiteMeasurements> tmuData) {
+
+	public TMUData(String tmuIdentifier, Date publicationTime, List<SiteMeasurements> tmuData) {
 		super();
 		this.tmuIdentifier = tmuIdentifier;
 		this.publicationTime = publicationTime;
@@ -32,5 +31,5 @@ public class TMUData implements DataObject {
 	public List<SiteMeasurements> getTMUData() {
 		return tmuData;
 	}
-	
+
 }

@@ -9,11 +9,12 @@ public class LinkShapeStaticData implements DataObject {
 	private String linkShapeStaticIdentifier;
 	private Date publicationTime;
 	private PredefinedLocation linkShapeStaticData;
-	
+
 	public LinkShapeStaticData() {
 	}
-	
-	public LinkShapeStaticData(String linkShapeStaticIdentifier, Date publicationTime, PredefinedLocation linkShapeStaticData) {
+
+	public LinkShapeStaticData(String linkShapeStaticIdentifier, Date publicationTime,
+			PredefinedLocation linkShapeStaticData) {
 		super();
 		this.publicationTime = publicationTime;
 		this.linkShapeStaticIdentifier = linkShapeStaticIdentifier;
@@ -23,7 +24,7 @@ public class LinkShapeStaticData implements DataObject {
 	public String getLinkShapeStaticIdentifier() {
 		return linkShapeStaticIdentifier;
 	}
-	
+
 	public Date getPublicationTime() {
 		return publicationTime;
 	}
@@ -31,5 +32,5 @@ public class LinkShapeStaticData implements DataObject {
 	public PredefinedLocation getLinkShapeStaticData() {
 		return linkShapeStaticData;
 	}
-	
+
 }

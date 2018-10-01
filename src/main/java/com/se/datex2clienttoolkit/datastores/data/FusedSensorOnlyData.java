@@ -10,7 +10,7 @@ public class FusedSensorOnlyData implements DataObject {
 	private Date publicationTime;
 	private Date timeDefault;
 	private ElaboratedData elaboratedData;
-	
+
 	public FusedSensorOnlyData() {
 	}
 
@@ -34,9 +34,9 @@ public class FusedSensorOnlyData implements DataObject {
 	public Date getTimeDefault() {
 		return timeDefault;
 	}
-	
+
 	public ElaboratedData getElaboratedData() {
 		return elaboratedData;
 	}
-	
+
 }

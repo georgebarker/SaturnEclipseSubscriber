@@ -9,36 +9,37 @@ import com.se.datex2clienttoolkit.datastores.data.LinkShapeStaticData;
 
 /**
  * 
- * This data store contains the LinkShapeStatic data indexed by predefined location ID.
+ * This data store contains the LinkShapeStatic data indexed by predefined
+ * location ID.
  * 
  * @author Saturn Eclipse Limited
  *
  */
 @Component
-public class LinkShapeStaticDataStore extends DataStore{
+public class LinkShapeStaticDataStore extends DataStore {
 
-	public LinkShapeStaticDataStore(){
+	public LinkShapeStaticDataStore() {
 		super();
 	}
-		
-	public synchronized void updateData(DataObject data){
-		LinkShapeStaticData linkShapeStaticData = (LinkShapeStaticData)data; 
-		String linkShapeStaticIdentifier=linkShapeStaticData.getLinkShapeStaticIdentifier(); 
-		if (dataMap.containsKey(linkShapeStaticIdentifier)){
+
+	public synchronized void updateData(DataObject data) {
+		LinkShapeStaticData linkShapeStaticData = (LinkShapeStaticData) data;
+		String linkShapeStaticIdentifier = linkShapeStaticData.getLinkShapeStaticIdentifier();
+		if (dataMap.containsKey(linkShapeStaticIdentifier)) {
 			dataMap.remove(linkShapeStaticIdentifier);
 			dataMap.put(linkShapeStaticIdentifier, linkShapeStaticData);
-		}else{
+		} else {
 			dataMap.put(linkShapeStaticIdentifier, linkShapeStaticData);
 		}
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public synchronized LinkedList<LinkShapeStaticData> getAllLinkShapeStaticData(){
+	public synchronized LinkedList<LinkShapeStaticData> getAllLinkShapeStaticData() {
 		return new LinkedList(dataMap.values());
 	}
-	
-	public synchronized void removeData(String linkShapeStaticIdentifier){
-		if (dataMap.containsKey(linkShapeStaticIdentifier)){
+
+	public synchronized void removeData(String linkShapeStaticIdentifier) {
+		if (dataMap.containsKey(linkShapeStaticIdentifier)) {
 			dataMap.remove(linkShapeStaticIdentifier);
 		}
 	}

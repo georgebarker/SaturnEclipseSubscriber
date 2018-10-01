@@ -15,30 +15,30 @@ import com.se.datex2clienttoolkit.datastores.data.VMSStaticData;
  *
  */
 @Component
-public class VMSStaticDataStore extends DataStore{
+public class VMSStaticDataStore extends DataStore {
 
-	public VMSStaticDataStore(){
+	public VMSStaticDataStore() {
 		super();
 	}
-		
-	public synchronized void updateData(DataObject data){
-		VMSStaticData vmsStaticData = (VMSStaticData)data; 
-		String vmsStaticIdentifier=vmsStaticData.getVMSStaticIdentifier(); 
-		if (dataMap.containsKey(vmsStaticIdentifier)){
+
+	public synchronized void updateData(DataObject data) {
+		VMSStaticData vmsStaticData = (VMSStaticData) data;
+		String vmsStaticIdentifier = vmsStaticData.getVMSStaticIdentifier();
+		if (dataMap.containsKey(vmsStaticIdentifier)) {
 			dataMap.remove(vmsStaticIdentifier);
 			dataMap.put(vmsStaticIdentifier, vmsStaticData);
-		}else{
+		} else {
 			dataMap.put(vmsStaticIdentifier, vmsStaticData);
 		}
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public synchronized LinkedList<VMSStaticData> getAllVMSStaticData(){
+	public synchronized LinkedList<VMSStaticData> getAllVMSStaticData() {
 		return new LinkedList(dataMap.values());
 	}
-	
-	public synchronized void removeData(String vmsStaticIdentifier){
-		if (dataMap.containsKey(vmsStaticIdentifier)){
+
+	public synchronized void removeData(String vmsStaticIdentifier) {
+		if (dataMap.containsKey(vmsStaticIdentifier)) {
 			dataMap.remove(vmsStaticIdentifier);
 		}
 	}

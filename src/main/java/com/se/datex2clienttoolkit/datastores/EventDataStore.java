@@ -15,30 +15,30 @@ import com.se.datex2clienttoolkit.datastores.data.EventData;
  *
  */
 @Component
-public class EventDataStore extends DataStore{
+public class EventDataStore extends DataStore {
 
-	public EventDataStore(){
+	public EventDataStore() {
 		super();
 	}
-		
-	public synchronized void updateData(DataObject data){
-		EventData eventData = (EventData)data;
-		String eventIdentifier=eventData.getEventIdentifier(); 
-		if (dataMap.containsKey(eventIdentifier)){
+
+	public synchronized void updateData(DataObject data) {
+		EventData eventData = (EventData) data;
+		String eventIdentifier = eventData.getEventIdentifier();
+		if (dataMap.containsKey(eventIdentifier)) {
 			dataMap.remove(eventIdentifier);
 			dataMap.put(eventIdentifier, eventData);
-		}else{
+		} else {
 			dataMap.put(eventIdentifier, eventData);
 		}
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public synchronized LinkedList<EventData> getAllEventData(){
+	public synchronized LinkedList<EventData> getAllEventData() {
 		return new LinkedList(dataMap.values());
 	}
-	
-	public synchronized void removeData(String eventIdentifier){
-		if (dataMap.containsKey(eventIdentifier)){
+
+	public synchronized void removeData(String eventIdentifier) {
+		if (dataMap.containsKey(eventIdentifier)) {
 			dataMap.remove(eventIdentifier);
 		}
 	}

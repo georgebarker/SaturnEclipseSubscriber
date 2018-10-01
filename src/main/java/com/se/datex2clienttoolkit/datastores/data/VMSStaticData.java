@@ -9,10 +9,10 @@ public class VMSStaticData implements DataObject {
 	private String vmsStaticIdentifier;
 	private Date publicationTime;
 	private VmsUnitRecord vmsStaticData;
-	
+
 	public VMSStaticData() {
 	}
-	
+
 	public VMSStaticData(String vmsStaticIdentifier, Date publicationTime, VmsUnitRecord vmsStaticData) {
 		super();
 		this.publicationTime = publicationTime;
@@ -23,7 +23,7 @@ public class VMSStaticData implements DataObject {
 	public String getVMSStaticIdentifier() {
 		return vmsStaticIdentifier;
 	}
-	
+
 	public Date getPublicationTime() {
 		return publicationTime;
 	}
@@ -31,5 +31,5 @@ public class VMSStaticData implements DataObject {
 	public VmsUnitRecord getVMSStaticData() {
 		return vmsStaticData;
 	}
-	
+
 }

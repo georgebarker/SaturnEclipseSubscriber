@@ -9,11 +9,12 @@ public class HATRISSectionStaticData implements DataObject {
 	private String hatrisSectionStaticIdentifier;
 	private Date publicationTime;
 	private PredefinedLocation hatrisSectionStaticData;
-	
+
 	public HATRISSectionStaticData() {
 	}
-	
-	public HATRISSectionStaticData(String hatrisSectionStaticIdentifier, Date publicationTime, PredefinedLocation hatrisSectionStaticData) {
+
+	public HATRISSectionStaticData(String hatrisSectionStaticIdentifier, Date publicationTime,
+			PredefinedLocation hatrisSectionStaticData) {
 		super();
 		this.publicationTime = publicationTime;
 		this.hatrisSectionStaticIdentifier = hatrisSectionStaticIdentifier;
@@ -23,7 +24,7 @@ public class HATRISSectionStaticData implements DataObject {
 	public String getHATRISSectionStaticIdentifier() {
 		return hatrisSectionStaticIdentifier;
 	}
-	
+
 	public Date getPublicationTime() {
 		return publicationTime;
 	}
@@ -31,5 +32,5 @@ public class HATRISSectionStaticData implements DataObject {
 	public PredefinedLocation getHATRISSectionStaticData() {
 		return hatrisSectionStaticData;
 	}
-	
+
 }

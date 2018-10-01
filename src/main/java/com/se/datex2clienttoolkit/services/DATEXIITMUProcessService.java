@@ -20,8 +20,8 @@ import com.se.datex2clienttoolkit.datastores.data.TMUData;
 
 /**
  * 
- * This service processes TMU DATEX II v2 messages (D2LogicalModel).
- * The payloads are inserted into the TMU data store.
+ * This service processes TMU DATEX II v2 messages (D2LogicalModel). The
+ * payloads are inserted into the TMU data store.
  * 
  * @author Saturn Eclipse Limited
  *
@@ -30,75 +30,74 @@ import com.se.datex2clienttoolkit.datastores.data.TMUData;
 public class DATEXIITMUProcessService extends DATEXIIProcessService {
 
 	final Logger log = LoggerFactory.getLogger(DATEXIITMUProcessService.class);
-	
+
 	private TMUDataStore tmuDataStore;
-	
+
 	@Autowired
-	public DATEXIITMUProcessService(TMUDataStore tmuDataStore){
+	public DATEXIITMUProcessService(TMUDataStore tmuDataStore) {
 		super();
 		this.tmuDataStore = tmuDataStore;
 	}
-	
-	public DATEXIITMUProcessService(){
+
+	public DATEXIITMUProcessService() {
 		super();
 	}
-	
+
 	@Override
 	public void processMessage(D2LogicalModel d2LogicalModel) {
-		if (log.isDebugEnabled()){
-            log.debug("TMU Update");
-        }
-        		
-		MeasuredDataPublication measuredDataPublication = (MeasuredDataPublication)d2LogicalModel.getPayloadPublication();
- 
-        if (measuredDataPublication != null) {
-        	Date publicationTime = measuredDataPublication.getPublicationTime().toGregorianCalendar().getTime();
-            
-            List<SiteMeasurements> siteMeasurementsList = measuredDataPublication.getSiteMeasurements();
-            Iterator<SiteMeasurements> iterator = siteMeasurementsList.iterator();
-            
-    		if (log.isDebugEnabled()){
-                log.debug("TMU Update("+ siteMeasurementsList.size() + " objects)");
-            }
-    		
-    		Map<String, List<SiteMeasurements>> siteMeasurementsIndex = 
-    				new HashMap<String, List<SiteMeasurements>>();
-    		
-            while (iterator.hasNext()){
-            	SiteMeasurements siteMeasurements = iterator.next();
-                processSituation(siteMeasurements, publicationTime, siteMeasurementsIndex);
-            }
-            
-            for (String tmuIdentifier : siteMeasurementsIndex.keySet()){
-            	TMUData tmuData = new TMUData(tmuIdentifier, publicationTime, siteMeasurementsIndex.get(tmuIdentifier));
-    		
-            	tmuDataStore.updateData(tmuData);
-            }
-        }
-        
-		if (log.isDebugEnabled()){
-            log.debug("TMU Update Complete");
-        }
+		if (log.isDebugEnabled()) {
+			log.debug("TMU Update");
+		}
+
+		MeasuredDataPublication measuredDataPublication = (MeasuredDataPublication) d2LogicalModel
+				.getPayloadPublication();
+
+		if (measuredDataPublication != null) {
+			Date publicationTime = measuredDataPublication.getPublicationTime().toGregorianCalendar().getTime();
+
+			List<SiteMeasurements> siteMeasurementsList = measuredDataPublication.getSiteMeasurements();
+			Iterator<SiteMeasurements> iterator = siteMeasurementsList.iterator();
+
+			if (log.isDebugEnabled()) {
+				log.debug("TMU Update(" + siteMeasurementsList.size() + " objects)");
+			}
+
+			Map<String, List<SiteMeasurements>> siteMeasurementsIndex = new HashMap<String, List<SiteMeasurements>>();
+
+			while (iterator.hasNext()) {
+				SiteMeasurements siteMeasurements = iterator.next();
+				processSituation(siteMeasurements, publicationTime, siteMeasurementsIndex);
+			}
+
+			for (String tmuIdentifier : siteMeasurementsIndex.keySet()) {
+				TMUData tmuData = new TMUData(tmuIdentifier, publicationTime, siteMeasurementsIndex.get(tmuIdentifier));
+
+				tmuDataStore.updateData(tmuData);
+			}
+		}
+
+		if (log.isDebugEnabled()) {
+			log.debug("TMU Update Complete");
+		}
 	}
-	
-	private void processSituation(SiteMeasurements siteMeasurements, Date publicationTime, 
+
+	private void processSituation(SiteMeasurements siteMeasurements, Date publicationTime,
 			Map<String, List<SiteMeasurements>> siteMeasurementsIndex) {
 		String tmuIdentifier = siteMeasurements.getMeasurementSiteReference().getId();
 
-		if (log.isTraceEnabled()){
-			log.trace("Processing TMU Identifier("+tmuIdentifier+")"); 
+		if (log.isTraceEnabled()) {
+			log.trace("Processing TMU Identifier(" + tmuIdentifier + ")");
 		}
-		
+
 		List<SiteMeasurements> siteMeasurementsList;
-		if (siteMeasurementsIndex.containsKey(tmuIdentifier)){
+		if (siteMeasurementsIndex.containsKey(tmuIdentifier)) {
 			siteMeasurementsList = siteMeasurementsIndex.get(tmuIdentifier);
 		} else {
 			siteMeasurementsList = new LinkedList<SiteMeasurements>();
 			siteMeasurementsIndex.put(tmuIdentifier, siteMeasurementsList);
 		}
 		siteMeasurementsList.add(siteMeasurements);
-		
-	}
 
+	}
 
 }

@@ -9,10 +9,10 @@ public class TMUStaticData implements DataObject {
 	private String tmuStaticIdentifier;
 	private Date publicationTime;
 	private MeasurementSiteRecord tmuStaticData;
-	
+
 	public TMUStaticData() {
 	}
-	
+
 	public TMUStaticData(String tmuStaticIdentifier, Date publicationTime, MeasurementSiteRecord tmuStaticData) {
 		super();
 		this.publicationTime = publicationTime;
@@ -23,7 +23,7 @@ public class TMUStaticData implements DataObject {
 	public String getTMUStaticIdentifier() {
 		return tmuStaticIdentifier;
 	}
-	
+
 	public Date getPublicationTime() {
 		return publicationTime;
 	}
@@ -31,5 +31,5 @@ public class TMUStaticData implements DataObject {
 	public MeasurementSiteRecord getTMUStaticData() {
 		return tmuStaticData;
 	}
-	
+
 }

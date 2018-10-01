@@ -9,10 +9,10 @@ public class ANPRStaticData implements DataObject {
 	private String anprStaticIdentifier;
 	private Date publicationTime;
 	private MeasurementSiteRecord anprStaticData;
-	
+
 	public ANPRStaticData() {
 	}
-	
+
 	public ANPRStaticData(String anprStaticIdentifier, Date publicationTime, MeasurementSiteRecord anprStaticData) {
 		super();
 		this.publicationTime = publicationTime;
@@ -23,7 +23,7 @@ public class ANPRStaticData implements DataObject {
 	public String getANPRStaticIdentifier() {
 		return anprStaticIdentifier;
 	}
-	
+
 	public Date getPublicationTime() {
 		return publicationTime;
 	}
@@ -31,5 +31,5 @@ public class ANPRStaticData implements DataObject {
 	public MeasurementSiteRecord getANPRStaticData() {
 		return anprStaticData;
 	}
-	
+
 }

@@ -9,7 +9,7 @@ public class VMSData implements DataObject {
 	private String vmsIdentifier;
 	private Date publicationTime;
 	private VmsUnit vmsData;
-	
+
 	public VMSData() {
 	}
 
@@ -30,5 +30,5 @@ public class VMSData implements DataObject {
 
 	public VmsUnit getVmsData() {
 		return vmsData;
-	}	
+	}
 }

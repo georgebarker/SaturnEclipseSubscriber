@@ -12,7 +12,8 @@ import com.se.datex2clienttoolkit.services.DATEXIIUpdateService;
 
 /**
  * 
- * A DATEX II HTTP controller to receive raw XML strings and add to the update service queue.
+ * A DATEX II HTTP controller to receive raw XML strings and add to the update
+ * service queue.
  * 
  * @author Saturn Eclipse Limited
  *
@@ -24,17 +25,18 @@ public class DATEXIIClientController {
 
 	@Autowired
 	DATEXIIUpdateService datexIIUpdateService;
-	 
+
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public void update(@RequestBody String xml) {
-		if(logger.isDebugEnabled()){
+		if (logger.isDebugEnabled()) {
 			logger.debug("DATEXII Update Message Received");
-			if(logger.isTraceEnabled()){
-				logger.trace("DATEXII Update Message Received(Message Length = " + new Integer(xml.length()).toString() + ")");
+			if (logger.isTraceEnabled()) {
+				logger.trace("DATEXII Update Message Received(Message Length = " + new Integer(xml.length()).toString()
+						+ ")");
 			}
 		}
-		
+
 		datexIIUpdateService.addToMessageQueue(xml);
-        return;
-    }
+		return;
+	}
 }

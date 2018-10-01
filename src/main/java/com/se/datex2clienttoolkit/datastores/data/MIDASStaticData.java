@@ -9,10 +9,10 @@ public class MIDASStaticData implements DataObject {
 	private String midasStaticIdentifier;
 	private Date publicationTime;
 	private MeasurementSiteRecord midasStaticData;
-	
+
 	public MIDASStaticData() {
 	}
-	
+
 	public MIDASStaticData(String midasStaticIdentifier, Date publicationTime, MeasurementSiteRecord midasStaticData) {
 		super();
 		this.publicationTime = publicationTime;
@@ -23,7 +23,7 @@ public class MIDASStaticData implements DataObject {
 	public String getMIDASStaticIdentifier() {
 		return midasStaticIdentifier;
 	}
-	
+
 	public Date getPublicationTime() {
 		return publicationTime;
 	}
@@ -31,5 +31,5 @@ public class MIDASStaticData implements DataObject {
 	public MeasurementSiteRecord getMIDASStaticData() {
 		return midasStaticData;
 	}
-	
+
 }

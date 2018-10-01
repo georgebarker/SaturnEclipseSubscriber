@@ -1,6 +1,5 @@
 package com.se.datex2clienttoolkit.services;
 
-
 import org.springframework.stereotype.Service;
 
 import com.se.datex2.schema.D2LogicalModel;
@@ -21,18 +20,17 @@ import javax.xml.bind.Unmarshaller;
 public class JAXBService {
 	JAXBContext jc;
 
-	public JAXBService(){
+	public JAXBService() {
 		try {
 			jc = JAXBContext.newInstance(D2LogicalModel.class);
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
 	}
-		
-	public Unmarshaller createUnmarshaller()
-	{
-		synchronized(this){
-			Unmarshaller unmarshaller=null;
+
+	public Unmarshaller createUnmarshaller() {
+		synchronized (this) {
+			Unmarshaller unmarshaller = null;
 			try {
 				unmarshaller = jc.createUnmarshaller();
 			} catch (JAXBException e) {
@@ -41,9 +39,9 @@ public class JAXBService {
 			return unmarshaller;
 		}
 	}
-	
-	public Marshaller createMarshaller(){
-		synchronized(this){
+
+	public Marshaller createMarshaller() {
+		synchronized (this) {
 			Marshaller marshaller = null;
 			try {
 				marshaller = jc.createMarshaller();

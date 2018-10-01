@@ -8,12 +8,11 @@ public class ModelUpdateNotificationData implements DataObject {
 	private String anprIdentifier;
 	private Date publicationTime;
 	private SiteMeasurements anprData;
-	
+
 	public ModelUpdateNotificationData() {
 	}
-	
-	public ModelUpdateNotificationData(String anprIdentifier, Date publicationTime,
-			SiteMeasurements anprData) {
+
+	public ModelUpdateNotificationData(String anprIdentifier, Date publicationTime, SiteMeasurements anprData) {
 		super();
 		this.anprIdentifier = anprIdentifier;
 		this.publicationTime = publicationTime;

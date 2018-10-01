@@ -9,36 +9,37 @@ import com.se.datex2clienttoolkit.datastores.data.MIDASStaticData;
 
 /**
  * 
- * This data store contains the MIDASStatic data indexed by measurement site record ID.
+ * This data store contains the MIDASStatic data indexed by measurement site
+ * record ID.
  * 
  * @author Saturn Eclipse Limited
  *
  */
 @Component
-public class MIDASStaticDataStore extends DataStore{
+public class MIDASStaticDataStore extends DataStore {
 
-	public MIDASStaticDataStore(){
+	public MIDASStaticDataStore() {
 		super();
 	}
-		
-	public synchronized void updateData(DataObject data){
-		MIDASStaticData measurementSiteStaticData = (MIDASStaticData)data; 
-		String measurementSiteStaticIdentifier=measurementSiteStaticData.getMIDASStaticIdentifier(); 
-		if (dataMap.containsKey(measurementSiteStaticIdentifier)){
+
+	public synchronized void updateData(DataObject data) {
+		MIDASStaticData measurementSiteStaticData = (MIDASStaticData) data;
+		String measurementSiteStaticIdentifier = measurementSiteStaticData.getMIDASStaticIdentifier();
+		if (dataMap.containsKey(measurementSiteStaticIdentifier)) {
 			dataMap.remove(measurementSiteStaticIdentifier);
 			dataMap.put(measurementSiteStaticIdentifier, measurementSiteStaticData);
-		}else{
+		} else {
 			dataMap.put(measurementSiteStaticIdentifier, measurementSiteStaticData);
 		}
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public synchronized LinkedList<MIDASStaticData> getAllMIDASStaticData(){
+	public synchronized LinkedList<MIDASStaticData> getAllMIDASStaticData() {
 		return new LinkedList(dataMap.values());
 	}
-	
-	public synchronized void removeData(String measurementSiteStaticIdentifier){
-		if (dataMap.containsKey(measurementSiteStaticIdentifier)){
+
+	public synchronized void removeData(String measurementSiteStaticIdentifier) {
+		if (dataMap.containsKey(measurementSiteStaticIdentifier)) {
 			dataMap.remove(measurementSiteStaticIdentifier);
 		}
 	}

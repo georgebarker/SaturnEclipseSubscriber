@@ -9,10 +9,10 @@ public class TAMEStaticData implements DataObject {
 	private String tameStaticIdentifier;
 	private Date publicationTime;
 	private MeasurementSiteRecord tameStaticData;
-	
+
 	public TAMEStaticData() {
 	}
-	
+
 	public TAMEStaticData(String tameStaticIdentifier, Date publicationTime, MeasurementSiteRecord tameStaticData) {
 		super();
 		this.publicationTime = publicationTime;
@@ -23,7 +23,7 @@ public class TAMEStaticData implements DataObject {
 	public String getTAMEStaticIdentifier() {
 		return tameStaticIdentifier;
 	}
-	
+
 	public Date getPublicationTime() {
 		return publicationTime;
 	}
@@ -31,5 +31,5 @@ public class TAMEStaticData implements DataObject {
 	public MeasurementSiteRecord getTAMEStaticData() {
 		return tameStaticData;
 	}
-	
+
 }

@@ -9,11 +9,12 @@ public class ANPRRouteStaticData implements DataObject {
 	private String anprRouteStaticIdentifier;
 	private Date publicationTime;
 	private PredefinedLocation anprRouteStaticData;
-	
+
 	public ANPRRouteStaticData() {
 	}
-	
-	public ANPRRouteStaticData(String anprRouteStaticIdentifier, Date publicationTime, PredefinedLocation anprRouteStaticData) {
+
+	public ANPRRouteStaticData(String anprRouteStaticIdentifier, Date publicationTime,
+			PredefinedLocation anprRouteStaticData) {
 		super();
 		this.publicationTime = publicationTime;
 		this.anprRouteStaticIdentifier = anprRouteStaticIdentifier;
@@ -23,7 +24,7 @@ public class ANPRRouteStaticData implements DataObject {
 	public String getANPRRouteStaticIdentifier() {
 		return anprRouteStaticIdentifier;
 	}
-	
+
 	public Date getPublicationTime() {
 		return publicationTime;
 	}
@@ -31,5 +32,5 @@ public class ANPRRouteStaticData implements DataObject {
 	public PredefinedLocation getANPRRouteStaticData() {
 		return anprRouteStaticData;
 	}
-	
+
 }

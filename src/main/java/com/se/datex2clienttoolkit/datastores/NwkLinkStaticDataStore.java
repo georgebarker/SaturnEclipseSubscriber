@@ -9,36 +9,37 @@ import com.se.datex2clienttoolkit.datastores.data.NwkLinkStaticData;
 
 /**
  * 
- * This data store contains the NwkLinkStatic data indexed by predefined location ID.
+ * This data store contains the NwkLinkStatic data indexed by predefined
+ * location ID.
  * 
  * @author Saturn Eclipse Limited
  *
  */
 @Component
-public class NwkLinkStaticDataStore extends DataStore{
+public class NwkLinkStaticDataStore extends DataStore {
 
-	public NwkLinkStaticDataStore(){
+	public NwkLinkStaticDataStore() {
 		super();
 	}
-		
-	public synchronized void updateData(DataObject data){
-		NwkLinkStaticData nwkLinkStaticData = (NwkLinkStaticData)data; 
-		String nwkLinkStaticIdentifier=nwkLinkStaticData.getNwkLinkStaticIdentifier(); 
-		if (dataMap.containsKey(nwkLinkStaticIdentifier)){
+
+	public synchronized void updateData(DataObject data) {
+		NwkLinkStaticData nwkLinkStaticData = (NwkLinkStaticData) data;
+		String nwkLinkStaticIdentifier = nwkLinkStaticData.getNwkLinkStaticIdentifier();
+		if (dataMap.containsKey(nwkLinkStaticIdentifier)) {
 			dataMap.remove(nwkLinkStaticIdentifier);
 			dataMap.put(nwkLinkStaticIdentifier, nwkLinkStaticData);
-		}else{
+		} else {
 			dataMap.put(nwkLinkStaticIdentifier, nwkLinkStaticData);
 		}
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public synchronized LinkedList<NwkLinkStaticData> getAllNwkLinkStaticData(){
+	public synchronized LinkedList<NwkLinkStaticData> getAllNwkLinkStaticData() {
 		return new LinkedList(dataMap.values());
 	}
-	
-	public synchronized void removeData(String nwkLinkStaticIdentifier){
-		if (dataMap.containsKey(nwkLinkStaticIdentifier)){
+
+	public synchronized void removeData(String nwkLinkStaticIdentifier) {
+		if (dataMap.containsKey(nwkLinkStaticIdentifier)) {
 			dataMap.remove(nwkLinkStaticIdentifier);
 		}
 	}

@@ -9,35 +9,36 @@ import com.se.datex2clienttoolkit.datastores.data.TMUData;
 
 /**
  * 
- * This data store contains the TMU data indexed by measurement site reference ID.
+ * This data store contains the TMU data indexed by measurement site reference
+ * ID.
  * 
  * @author Saturn Eclipse Limited
  *
  */
 @Component
 public class TMUDataStore extends DataStore {
-	public TMUDataStore(){
+	public TMUDataStore() {
 		super();
 	}
-		
-	public synchronized void updateData(DataObject data){
-		TMUData tmuData = (TMUData)data;
-		String tmuIdentifier=tmuData.getTMUIdentifier(); 
-		if (dataMap.containsKey(tmuIdentifier)){
+
+	public synchronized void updateData(DataObject data) {
+		TMUData tmuData = (TMUData) data;
+		String tmuIdentifier = tmuData.getTMUIdentifier();
+		if (dataMap.containsKey(tmuIdentifier)) {
 			dataMap.remove(tmuIdentifier);
 			dataMap.put(tmuIdentifier, tmuData);
-		}else{
+		} else {
 			dataMap.put(tmuIdentifier, tmuData);
 		}
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public synchronized LinkedList<TMUData> getAllTMUData(){
+	public synchronized LinkedList<TMUData> getAllTMUData() {
 		return new LinkedList(dataMap.values());
 	}
-	
-	public synchronized void removeData(String tmuIdentifier){
-		if (dataMap.containsKey(tmuIdentifier)){
+
+	public synchronized void removeData(String tmuIdentifier) {
+		if (dataMap.containsKey(tmuIdentifier)) {
 			dataMap.remove(tmuIdentifier);
 		}
 	}

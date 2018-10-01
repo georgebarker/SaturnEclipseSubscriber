@@ -17,8 +17,8 @@ import com.se.datex2clienttoolkit.datastores.data.MIDASData;
 
 /**
  * 
- * This service processes MIDAS DATEX II v2 messages (D2LogicalModel).
- * The payloads are inserted into the MIDAS data store.
+ * This service processes MIDAS DATEX II v2 messages (D2LogicalModel). The
+ * payloads are inserted into the MIDAS data store.
  * 
  * @author Saturn Eclipse Limited
  *
@@ -26,57 +26,58 @@ import com.se.datex2clienttoolkit.datastores.data.MIDASData;
 @Service
 public class DATEXIIMIDASProcessService extends DATEXIIProcessService {
 	final Logger log = LoggerFactory.getLogger(DATEXIIMIDASProcessService.class);
-	
+
 	private MIDASDataStore midasDataStore;
-	
+
 	@Autowired
-	public DATEXIIMIDASProcessService(MIDASDataStore midasDataStore){
+	public DATEXIIMIDASProcessService(MIDASDataStore midasDataStore) {
 		super();
 		this.midasDataStore = midasDataStore;
 	}
-	
-	public DATEXIIMIDASProcessService(){
+
+	public DATEXIIMIDASProcessService() {
 		super();
 	}
-	
+
 	@Override
 	public void processMessage(D2LogicalModel d2LogicalModel) {
-		if (log.isDebugEnabled()){
-            log.debug("MIDAS Update");
-        }
-       
-		MeasuredDataPublication measuredDataPublication = (MeasuredDataPublication)d2LogicalModel.getPayloadPublication();
- 
-        if (measuredDataPublication != null) {
-        	Date publicationTime = measuredDataPublication.getPublicationTime().toGregorianCalendar().getTime();
-            
-            List<SiteMeasurements> siteMeasurementsList = measuredDataPublication.getSiteMeasurements();
-            
-    		if (log.isDebugEnabled()){
-                log.debug("MIDAS Update("+ siteMeasurementsList.size() + " objects)");
-            }
-    		
-            Iterator<SiteMeasurements> iterator = siteMeasurementsList.iterator();
-            while (iterator.hasNext()){
-            	SiteMeasurements siteMeasurements = iterator.next();
-                processSituation(siteMeasurements, publicationTime);
-            }
-        }
-        
-        if (log.isDebugEnabled()){
-            log.debug("MIDAS Update Complete");
-        }
+		if (log.isDebugEnabled()) {
+			log.debug("MIDAS Update");
+		}
+
+		MeasuredDataPublication measuredDataPublication = (MeasuredDataPublication) d2LogicalModel
+				.getPayloadPublication();
+
+		if (measuredDataPublication != null) {
+			Date publicationTime = measuredDataPublication.getPublicationTime().toGregorianCalendar().getTime();
+
+			List<SiteMeasurements> siteMeasurementsList = measuredDataPublication.getSiteMeasurements();
+
+			if (log.isDebugEnabled()) {
+				log.debug("MIDAS Update(" + siteMeasurementsList.size() + " objects)");
+			}
+
+			Iterator<SiteMeasurements> iterator = siteMeasurementsList.iterator();
+			while (iterator.hasNext()) {
+				SiteMeasurements siteMeasurements = iterator.next();
+				processSituation(siteMeasurements, publicationTime);
+			}
+		}
+
+		if (log.isDebugEnabled()) {
+			log.debug("MIDAS Update Complete");
+		}
 	}
-	
+
 	private void processSituation(SiteMeasurements siteMeasurements, Date publicationTime) {
 		String midasIdentifier = siteMeasurements.getMeasurementSiteReference().getId();
 
-		if (log.isTraceEnabled()){
-			log.trace("Processing MIDAS Identifier("+midasIdentifier+")");
+		if (log.isTraceEnabled()) {
+			log.trace("Processing MIDAS Identifier(" + midasIdentifier + ")");
 		}
-		
+
 		MIDASData midasData = new MIDASData(midasIdentifier, publicationTime, siteMeasurements);
-		
+
 		midasDataStore.updateData(midasData);
 	}
 

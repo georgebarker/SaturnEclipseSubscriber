@@ -9,11 +9,12 @@ public class AlternateRouteStaticData implements DataObject {
 	private String alternateRouteStaticIdentifier;
 	private Date publicationTime;
 	private PredefinedLocation alternateRouteStaticData;
-	
+
 	public AlternateRouteStaticData() {
 	}
-	
-	public AlternateRouteStaticData(String alternateRouteStaticIdentifier, Date publicationTime, PredefinedLocation alternateRouteStaticData) {
+
+	public AlternateRouteStaticData(String alternateRouteStaticIdentifier, Date publicationTime,
+			PredefinedLocation alternateRouteStaticData) {
 		super();
 		this.publicationTime = publicationTime;
 		this.alternateRouteStaticIdentifier = alternateRouteStaticIdentifier;
@@ -23,7 +24,7 @@ public class AlternateRouteStaticData implements DataObject {
 	public String getAlternateRouteStaticIdentifier() {
 		return alternateRouteStaticIdentifier;
 	}
-	
+
 	public Date getPublicationTime() {
 		return publicationTime;
 	}
@@ -31,5 +32,5 @@ public class AlternateRouteStaticData implements DataObject {
 	public PredefinedLocation getAlternateRouteStaticData() {
 		return alternateRouteStaticData;
 	}
-	
+
 }

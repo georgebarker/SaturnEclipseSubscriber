@@ -15,30 +15,30 @@ import com.se.datex2clienttoolkit.datastores.data.VMSData;
  *
  */
 @Component
-public class VMSDataStore extends DataStore{
+public class VMSDataStore extends DataStore {
 
-	public VMSDataStore(){
+	public VMSDataStore() {
 		super();
 	}
-		
-	public synchronized void updateData(DataObject data){
-		VMSData vmsData = (VMSData)data;
-		String vmsIdentifier=vmsData.getVmsIdentifier(); 
-		if (dataMap.containsKey(vmsIdentifier)){
+
+	public synchronized void updateData(DataObject data) {
+		VMSData vmsData = (VMSData) data;
+		String vmsIdentifier = vmsData.getVmsIdentifier();
+		if (dataMap.containsKey(vmsIdentifier)) {
 			dataMap.remove(vmsIdentifier);
 			dataMap.put(vmsIdentifier, vmsData);
-		}else{
+		} else {
 			dataMap.put(vmsIdentifier, vmsData);
 		}
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public synchronized LinkedList<VMSData> getAllVMSData(){
+	public synchronized LinkedList<VMSData> getAllVMSData() {
 		return new LinkedList(dataMap.values());
 	}
-	
-	public synchronized void removeData(String vmsIdentifier){
-		if (dataMap.containsKey(vmsIdentifier)){
+
+	public synchronized void removeData(String vmsIdentifier) {
+		if (dataMap.containsKey(vmsIdentifier)) {
 			dataMap.remove(vmsIdentifier);
 		}
 	}

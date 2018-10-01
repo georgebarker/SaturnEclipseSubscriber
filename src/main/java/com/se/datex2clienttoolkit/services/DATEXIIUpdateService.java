@@ -24,8 +24,9 @@ import com.se.datex2.schema.D2LogicalModel;
 
 /**
  * 
- * This service processes receives raw DATEX II XML formatted data and adds to a queue.
- * In turn, each XML string is removed from the queue, parsed and forwarded to the correct process service.
+ * This service processes receives raw DATEX II XML formatted data and adds to a
+ * queue. In turn, each XML string is removed from the queue, parsed and
+ * forwarded to the correct process service.
  * 
  * @author Saturn Eclipse Limited
  *
@@ -33,92 +34,93 @@ import com.se.datex2.schema.D2LogicalModel;
 @Component
 public class DATEXIIUpdateService {
 	final Logger logger = LoggerFactory.getLogger(DATEXIIUpdateService.class);
-	
+
 	@Autowired
 	private JAXBService jaxbService;
-	
+
 	@Autowired
 	private DATEXIIProcessServiceFactory datexiiProcessServiceFactory;
-	
+
 	private ConcurrentLinkedQueue<String> messageQueue;
-	
+
 	private boolean working = false;
-	
-	public DATEXIIUpdateService(){
+
+	public DATEXIIUpdateService() {
 		messageQueue = new ConcurrentLinkedQueue<String>();
 	}
-	
-	public void addToMessageQueue(String xml){
-		if (xml != null){
-			synchronized (messageQueue){
+
+	public void addToMessageQueue(String xml) {
+		if (xml != null) {
+			synchronized (messageQueue) {
 				messageQueue.add(xml);
 			}
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Scheduled(fixedRate = 1000)
-	public void processDATEXIIUpdateXML(){
+	public void processDATEXIIUpdateXML() {
 		working = true;
-		if (logger.isTraceEnabled()){
+		if (logger.isTraceEnabled()) {
 			logger.trace("Polling for messages");
 		}
 		String xml;
-		synchronized (messageQueue){
+		synchronized (messageQueue) {
 			xml = messageQueue.poll();
 		}
-		while (xml != null){
-			try {			
+		while (xml != null) {
+			try {
 				byte[] bytes = xml.getBytes();
 				ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-						
+
 				XMLInputFactory xif = XMLInputFactory.newFactory();
 				XMLStreamReader xsr = null;
 				boolean foundBody = false;
-				xsr = xif.createXMLStreamReader(bais);					
-				while(!foundBody && xsr.hasNext()) {			
-					if(xsr.next() == XMLStreamConstants.START_ELEMENT &&
-						"http://schemas.xmlsoap.org/soap/envelope/".equals(xsr.getNamespaceURI()) &&
-						"Body".equals(xsr.getLocalName())) {
-							foundBody = true;
-							xsr.next();
-						}
-				}			
-				
+				xsr = xif.createXMLStreamReader(bais);
+				while (!foundBody && xsr.hasNext()) {
+					if (xsr.next() == XMLStreamConstants.START_ELEMENT
+							&& "http://schemas.xmlsoap.org/soap/envelope/".equals(xsr.getNamespaceURI())
+							&& "Body".equals(xsr.getLocalName())) {
+						foundBody = true;
+						xsr.next();
+					}
+				}
+
 				JAXBElement<D2LogicalModel> root;
 				Unmarshaller unmarshaller = jaxbService.createUnmarshaller();
-				if(foundBody) {						
-					root = (JAXBElement<D2LogicalModel>)unmarshaller.unmarshal(xsr);
+				if (foundBody) {
+					root = (JAXBElement<D2LogicalModel>) unmarshaller.unmarshal(xsr);
 				} else {
 					InputStream inputStream = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8));
-					root = (JAXBElement<D2LogicalModel>)unmarshaller.unmarshal(inputStream);
+					root = (JAXBElement<D2LogicalModel>) unmarshaller.unmarshal(inputStream);
 				}
 				D2LogicalModel d2lm = root.getValue();
-				FeedType feedType= getFeedType(d2lm);
-				DATEXIIProcessService datexiiProcessService = datexiiProcessServiceFactory.getDATEXIIProcessService(feedType);
-				if (datexiiProcessService != null){
+				FeedType feedType = getFeedType(d2lm);
+				DATEXIIProcessService datexiiProcessService = datexiiProcessServiceFactory
+						.getDATEXIIProcessService(feedType);
+				if (datexiiProcessService != null) {
 					datexiiProcessService.processMessage(d2lm);
 				}
-				
+
 			} catch (JAXBException e) {
 				logger.error("Failed to process XML", e);
 			} catch (XMLStreamException e) {
-				logger.error("XMLStreamException", e);				
-			}	
-			synchronized (messageQueue){
+				logger.error("XMLStreamException", e);
+			}
+			synchronized (messageQueue) {
 				xml = messageQueue.poll();
 			}
 		}
 		working = false;
 	}
-	
-	private FeedType getFeedType(D2LogicalModel d2lm){
-		String feedType=d2lm.getPayloadPublication().getFeedType();
+
+	private FeedType getFeedType(D2LogicalModel d2lm) {
+		String feedType = d2lm.getPayloadPublication().getFeedType();
 		return FeedType.getFeedType(feedType);
 	}
-	
-	public boolean workPending(){
-		synchronized (messageQueue){
+
+	public boolean workPending() {
+		synchronized (messageQueue) {
 			return messageQueue.isEmpty() && !working;
 		}
 	}

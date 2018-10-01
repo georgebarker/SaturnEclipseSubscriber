@@ -24,97 +24,99 @@ import com.se.datex2clienttoolkit.datastores.data.FusedFVDAndSensorData;
 
 /**
  * 
- * This service processes FusedFVDAndSensor DATEX II v2 messages (D2LogicalModel).
- * The payloads are inserted into the FusedFVDAndSensor data store.
+ * This service processes FusedFVDAndSensor DATEX II v2 messages
+ * (D2LogicalModel). The payloads are inserted into the FusedFVDAndSensor data
+ * store.
  * 
  * @author Saturn Eclipse Limited
  *
  */
 @Service
-public class DATEXIIFusedFVDAndSensorProcessService extends
-		DATEXIIProcessService {
+public class DATEXIIFusedFVDAndSensorProcessService extends DATEXIIProcessService {
 	final Logger log = LoggerFactory.getLogger(DATEXIIFusedFVDAndSensorProcessService.class);
-	
+
 	private FusedFVDAndSensorDataStore fusedFVDAndSensorDataStore;
-	
+
 	@Autowired
-	public DATEXIIFusedFVDAndSensorProcessService(FusedFVDAndSensorDataStore fusedFVDAndSensorDataStore){
+	public DATEXIIFusedFVDAndSensorProcessService(FusedFVDAndSensorDataStore fusedFVDAndSensorDataStore) {
 		super();
 		this.fusedFVDAndSensorDataStore = fusedFVDAndSensorDataStore;
 	}
-	
-	public DATEXIIFusedFVDAndSensorProcessService(){
+
+	public DATEXIIFusedFVDAndSensorProcessService() {
 		super();
 	}
-	
+
 	@Override
 	public void processMessage(D2LogicalModel d2LogicalModel) {
-		if (log.isDebugEnabled()){
-            log.debug("FusedFVDAndSensorData Update");
-        }
-        
+		if (log.isDebugEnabled()) {
+			log.debug("FusedFVDAndSensorData Update");
+		}
+
 		fusedFVDAndSensorDataStore.clearDataStore();
-		
-        ElaboratedDataPublication elaboratedDataPublication = (ElaboratedDataPublication)d2LogicalModel.getPayloadPublication();
- 
-        if (elaboratedDataPublication != null) {
-        	Date publicationTime = elaboratedDataPublication.getPublicationTime().toGregorianCalendar().getTime();
-            Date timeDefault = elaboratedDataPublication.getTimeDefault().toGregorianCalendar().getTime();
-            List<ElaboratedData> elaboratedDataList = elaboratedDataPublication.getElaboratedData();
-            Iterator<ElaboratedData> iterator = elaboratedDataList.iterator();
-            
-    		if (log.isDebugEnabled()){
-                log.debug("FusedFVDAndSensorData Update("+ elaboratedDataList.size() + " objects)");
-            }
-    		
-            while (iterator.hasNext()){
-            	ElaboratedData elaboratedData = iterator.next();
-                processSituation(elaboratedData, publicationTime, timeDefault);
-            }
-        }
-        
-		if (log.isDebugEnabled()){
-            log.debug("FusedFVDAndSensorData Update Complete");
-        }
+
+		ElaboratedDataPublication elaboratedDataPublication = (ElaboratedDataPublication) d2LogicalModel
+				.getPayloadPublication();
+
+		if (elaboratedDataPublication != null) {
+			Date publicationTime = elaboratedDataPublication.getPublicationTime().toGregorianCalendar().getTime();
+			Date timeDefault = elaboratedDataPublication.getTimeDefault().toGregorianCalendar().getTime();
+			List<ElaboratedData> elaboratedDataList = elaboratedDataPublication.getElaboratedData();
+			Iterator<ElaboratedData> iterator = elaboratedDataList.iterator();
+
+			if (log.isDebugEnabled()) {
+				log.debug("FusedFVDAndSensorData Update(" + elaboratedDataList.size() + " objects)");
+			}
+
+			while (iterator.hasNext()) {
+				ElaboratedData elaboratedData = iterator.next();
+				processSituation(elaboratedData, publicationTime, timeDefault);
+			}
+		}
+
+		if (log.isDebugEnabled()) {
+			log.debug("FusedFVDAndSensorData Update Complete");
+		}
 	}
-	
+
 	private void processSituation(ElaboratedData elaboratedData, Date publicationTime, Date timeDefault) {
-		
+
 		LocationByReference locationByReference = null;
 		BasicData basicData = elaboratedData.getBasicData();
-		if (basicData instanceof TrafficHeadway){
-			TrafficHeadway data = (TrafficHeadway)basicData;
-			locationByReference = (LocationByReference)data.getPertinentLocation();
-		}else if (basicData instanceof TrafficFlow){
-			TrafficFlow data = (TrafficFlow)basicData;
-			locationByReference = (LocationByReference)data.getPertinentLocation();
-		}else if (basicData instanceof TrafficConcentration){
-			TrafficConcentration data = (TrafficConcentration)basicData;
-			locationByReference = (LocationByReference)data.getPertinentLocation();
-		}else if (basicData instanceof TrafficSpeed){
-			TrafficSpeed data = (TrafficSpeed)basicData;
-			locationByReference = (LocationByReference)data.getPertinentLocation();
-		}else if (basicData instanceof TravelTimeData){
-			TravelTimeData data = (TravelTimeData)basicData;
-			locationByReference = (LocationByReference)data.getPertinentLocation();
-		}else{
+		if (basicData instanceof TrafficHeadway) {
+			TrafficHeadway data = (TrafficHeadway) basicData;
+			locationByReference = (LocationByReference) data.getPertinentLocation();
+		} else if (basicData instanceof TrafficFlow) {
+			TrafficFlow data = (TrafficFlow) basicData;
+			locationByReference = (LocationByReference) data.getPertinentLocation();
+		} else if (basicData instanceof TrafficConcentration) {
+			TrafficConcentration data = (TrafficConcentration) basicData;
+			locationByReference = (LocationByReference) data.getPertinentLocation();
+		} else if (basicData instanceof TrafficSpeed) {
+			TrafficSpeed data = (TrafficSpeed) basicData;
+			locationByReference = (LocationByReference) data.getPertinentLocation();
+		} else if (basicData instanceof TravelTimeData) {
+			TravelTimeData data = (TravelTimeData) basicData;
+			locationByReference = (LocationByReference) data.getPertinentLocation();
+		} else {
 			log.warn("basicData instance of -" + basicData.getClass().getSimpleName());
 		}
-		
-		String linkIdentifier=null;
-		if (locationByReference != null){
-			linkIdentifier = basicData.getClass().getSimpleName() + locationByReference.getPredefinedLocationReference().getId();
-			
-			if (log.isTraceEnabled()){
-				log.trace("Processing Fused FVD And Sensor Identifier("+linkIdentifier+")");
+
+		String linkIdentifier = null;
+		if (locationByReference != null) {
+			linkIdentifier = basicData.getClass().getSimpleName()
+					+ locationByReference.getPredefinedLocationReference().getId();
+
+			if (log.isTraceEnabled()) {
+				log.trace("Processing Fused FVD And Sensor Identifier(" + linkIdentifier + ")");
 			}
-			
-			FusedFVDAndSensorData fusedFVDAndSensorData = new FusedFVDAndSensorData(linkIdentifier, publicationTime, timeDefault, elaboratedData);
+
+			FusedFVDAndSensorData fusedFVDAndSensorData = new FusedFVDAndSensorData(linkIdentifier, publicationTime,
+					timeDefault, elaboratedData);
 			fusedFVDAndSensorDataStore.updateData(fusedFVDAndSensorData);
-		}else{
+		} else {
 			this.log.error("Failed to Process elaboratedData, " + elaboratedData.toString());
 		}
 	}
-	
 
 }

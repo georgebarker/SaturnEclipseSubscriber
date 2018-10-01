@@ -17,8 +17,8 @@ import com.se.datex2clienttoolkit.datastores.data.ANPRData;
 
 /**
  * 
- * This service processes ANPR DATEX II v2 messages (D2LogicalModel).
- * The payloads are inserted into the ANPR data store.
+ * This service processes ANPR DATEX II v2 messages (D2LogicalModel). The
+ * payloads are inserted into the ANPR data store.
  * 
  * @author Saturn Eclipse Limited
  *
@@ -26,61 +26,62 @@ import com.se.datex2clienttoolkit.datastores.data.ANPRData;
 @Service
 public class DATEXIIANPRProcessService extends DATEXIIProcessService {
 	final Logger log = LoggerFactory.getLogger(DATEXIIANPRProcessService.class);
-	
+
 	private ANPRDataStore anprDataStore;
-	
+
 	@Autowired
-	public DATEXIIANPRProcessService(ANPRDataStore anprDataStore){
+	public DATEXIIANPRProcessService(ANPRDataStore anprDataStore) {
 		super();
 		this.anprDataStore = anprDataStore;
 	}
-	
-	public DATEXIIANPRProcessService(){
+
+	public DATEXIIANPRProcessService() {
 		super();
 	}
-	
+
 	@Override
 	public void processMessage(D2LogicalModel d2LogicalModel) {
-		if (log.isDebugEnabled()){
-            log.debug("ANPR Update");
-        }
-		
-        MeasuredDataPublication measuredDataPublication = (MeasuredDataPublication)d2LogicalModel.getPayloadPublication();
- 
-        if (measuredDataPublication != null) {
-        	Date publicationTime = measuredDataPublication.getPublicationTime().toGregorianCalendar().getTime();
-            
-            List<SiteMeasurements> siteMeasurementsList = measuredDataPublication.getSiteMeasurements();
-            
-    		if (log.isDebugEnabled()){
-                log.debug("ANPR Update("+ siteMeasurementsList.size() + " objects)");
-            }
-    		
-            Iterator<SiteMeasurements> iterator = siteMeasurementsList.iterator();
-            while (iterator.hasNext()){
-            	SiteMeasurements siteMeasurements = iterator.next();
-                processSituation(siteMeasurements, publicationTime);
-            }
-        }
-        
-		if (log.isDebugEnabled()){
-            log.debug("ANPR Update Complete");
-        }
+		if (log.isDebugEnabled()) {
+			log.debug("ANPR Update");
+		}
+
+		MeasuredDataPublication measuredDataPublication = (MeasuredDataPublication) d2LogicalModel
+				.getPayloadPublication();
+
+		if (measuredDataPublication != null) {
+			Date publicationTime = measuredDataPublication.getPublicationTime().toGregorianCalendar().getTime();
+
+			List<SiteMeasurements> siteMeasurementsList = measuredDataPublication.getSiteMeasurements();
+
+			if (log.isDebugEnabled()) {
+				log.debug("ANPR Update(" + siteMeasurementsList.size() + " objects)");
+			}
+
+			Iterator<SiteMeasurements> iterator = siteMeasurementsList.iterator();
+			while (iterator.hasNext()) {
+				SiteMeasurements siteMeasurements = iterator.next();
+				processSituation(siteMeasurements, publicationTime);
+			}
+		}
+
+		if (log.isDebugEnabled()) {
+			log.debug("ANPR Update Complete");
+		}
 	}
-	
+
 	private void processSituation(SiteMeasurements siteMeasurements, Date publicationTime) {
 		String anprIdentifier = siteMeasurements.getMeasurementSiteReference().getId();
 
-		if (log.isTraceEnabled()){
-			log.trace("Processing ANPR Identifier("+anprIdentifier+")");
+		if (log.isTraceEnabled()) {
+			log.trace("Processing ANPR Identifier(" + anprIdentifier + ")");
 		}
-		
-		ANPRData anprData = (ANPRData)anprDataStore.getData(anprIdentifier);
-		if (anprData == null){
+
+		ANPRData anprData = (ANPRData) anprDataStore.getData(anprIdentifier);
+		if (anprData == null) {
 			anprData = new ANPRData(anprIdentifier, publicationTime);
 		}
 		anprData.addSiteMeasurements(siteMeasurements);
-		
+
 		anprDataStore.updateData(anprData);
 	}
 }

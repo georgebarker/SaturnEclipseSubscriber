@@ -10,10 +10,10 @@ public class ANPRData implements DataObject {
 	private String anprIdentifier;
 	private Date publicationTime;
 	private List<SiteMeasurements> anprData;
-	
+
 	public ANPRData() {
 	}
-	
+
 	public ANPRData(String anprIdentifier, Date publicationTime) {
 		super();
 		this.anprIdentifier = anprIdentifier;
@@ -32,9 +32,9 @@ public class ANPRData implements DataObject {
 	public List<SiteMeasurements> getAnprData() {
 		return anprData;
 	}
-	
-	public void addSiteMeasurements(SiteMeasurements siteMeasurements){
+
+	public void addSiteMeasurements(SiteMeasurements siteMeasurements) {
 		anprData.add(siteMeasurements);
 	}
-	
+
 }

@@ -9,36 +9,37 @@ import com.se.datex2clienttoolkit.datastores.data.HATRISSectionStaticData;
 
 /**
  * 
- * This data store contains the HATRISSectionStatic data indexed by predefined location ID.
+ * This data store contains the HATRISSectionStatic data indexed by predefined
+ * location ID.
  * 
  * @author Saturn Eclipse Limited
  *
  */
 @Component
-public class HATRISSectionStaticDataStore extends DataStore{
+public class HATRISSectionStaticDataStore extends DataStore {
 
-	public HATRISSectionStaticDataStore(){
+	public HATRISSectionStaticDataStore() {
 		super();
 	}
-		
-	public synchronized void updateData(DataObject data){
-		HATRISSectionStaticData hatrisSectionStaticData = (HATRISSectionStaticData)data; 
-		String hatrisSectionStaticIdentifier=hatrisSectionStaticData.getHATRISSectionStaticIdentifier(); 
-		if (dataMap.containsKey(hatrisSectionStaticIdentifier)){
+
+	public synchronized void updateData(DataObject data) {
+		HATRISSectionStaticData hatrisSectionStaticData = (HATRISSectionStaticData) data;
+		String hatrisSectionStaticIdentifier = hatrisSectionStaticData.getHATRISSectionStaticIdentifier();
+		if (dataMap.containsKey(hatrisSectionStaticIdentifier)) {
 			dataMap.remove(hatrisSectionStaticIdentifier);
 			dataMap.put(hatrisSectionStaticIdentifier, hatrisSectionStaticData);
-		}else{
+		} else {
 			dataMap.put(hatrisSectionStaticIdentifier, hatrisSectionStaticData);
 		}
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public synchronized LinkedList<HATRISSectionStaticData> getAllHATRISSectionStaticData(){
+	public synchronized LinkedList<HATRISSectionStaticData> getAllHATRISSectionStaticData() {
 		return new LinkedList(dataMap.values());
 	}
-	
-	public synchronized void removeData(String hatrisSectionStaticIdentifier){
-		if (dataMap.containsKey(hatrisSectionStaticIdentifier)){
+
+	public synchronized void removeData(String hatrisSectionStaticIdentifier) {
+		if (dataMap.containsKey(hatrisSectionStaticIdentifier)) {
 			dataMap.remove(hatrisSectionStaticIdentifier);
 		}
 	}

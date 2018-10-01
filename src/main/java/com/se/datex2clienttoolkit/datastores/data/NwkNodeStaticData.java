@@ -9,11 +9,12 @@ public class NwkNodeStaticData implements DataObject {
 	private String nwkNodeStaticIdentifier;
 	private Date publicationTime;
 	private PredefinedLocation nwkNodeStaticData;
-	
+
 	public NwkNodeStaticData() {
 	}
-	
-	public NwkNodeStaticData(String nwkNodeStaticIdentifier, Date publicationTime, PredefinedLocation nwkNodeStaticData) {
+
+	public NwkNodeStaticData(String nwkNodeStaticIdentifier, Date publicationTime,
+			PredefinedLocation nwkNodeStaticData) {
 		super();
 		this.publicationTime = publicationTime;
 		this.nwkNodeStaticIdentifier = nwkNodeStaticIdentifier;
@@ -23,7 +24,7 @@ public class NwkNodeStaticData implements DataObject {
 	public String getNwkNodeStaticIdentifier() {
 		return nwkNodeStaticIdentifier;
 	}
-	
+
 	public Date getPublicationTime() {
 		return publicationTime;
 	}
@@ -31,5 +32,5 @@ public class NwkNodeStaticData implements DataObject {
 	public PredefinedLocation getNwkNodeStaticData() {
 		return nwkNodeStaticData;
 	}
-	
+
 }

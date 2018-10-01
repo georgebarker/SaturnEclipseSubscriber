@@ -9,35 +9,36 @@ import com.se.datex2clienttoolkit.datastores.data.DataObject;
 
 /**
  * 
- * This data store contains the ANPR data indexed by measurement site reference ID.
+ * This data store contains the ANPR data indexed by measurement site reference
+ * ID.
  * 
  * @author Saturn Eclipse Limited
  *
  */
 @Component
 public class ANPRDataStore extends DataStore {
-	public ANPRDataStore(){
+	public ANPRDataStore() {
 		super();
 	}
-		
-	public synchronized void updateData(DataObject data){
-		ANPRData anprData = (ANPRData)data;
-		String anprIdentifier=anprData.getAnprIdentifier(); 
-		if (dataMap.containsKey(anprIdentifier)){
+
+	public synchronized void updateData(DataObject data) {
+		ANPRData anprData = (ANPRData) data;
+		String anprIdentifier = anprData.getAnprIdentifier();
+		if (dataMap.containsKey(anprIdentifier)) {
 			dataMap.remove(anprIdentifier);
 			dataMap.put(anprIdentifier, anprData);
-		}else{
+		} else {
 			dataMap.put(anprIdentifier, anprData);
 		}
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public synchronized LinkedList<ANPRData> getAllANPRData(){
+	public synchronized LinkedList<ANPRData> getAllANPRData() {
 		return new LinkedList(dataMap.values());
 	}
-	
-	public synchronized void removeData(String anprIdentifier){
-		if (dataMap.containsKey(anprIdentifier)){
+
+	public synchronized void removeData(String anprIdentifier) {
+		if (dataMap.containsKey(anprIdentifier)) {
 			dataMap.remove(anprIdentifier);
 		}
 	}

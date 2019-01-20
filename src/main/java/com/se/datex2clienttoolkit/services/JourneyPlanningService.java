@@ -112,9 +112,8 @@ public class JourneyPlanningService {
 		long startNodeId = Long.valueOf(startNode.getNwkNodeStaticIdentifier());
 		long endNodeId = Long.valueOf(endNode.getNwkNodeStaticIdentifier());
 
-		//linkCost and linkType are still Null.
-		NetworkLinkDTO networkLink = new NetworkLinkDTO(linkLength, 50D, linkId, lanes, carriageway, direction,
-				linkName, null, endNodeLatitude, endNodeLongitude, startNodeLatitude, startNodeLongitude, endNodeId,
+		NetworkLinkDTO networkLink = new NetworkLinkDTO(linkLength, linkId, lanes, carriageway, direction,
+				linkName, endNodeLatitude, endNodeLongitude, startNodeLatitude, startNodeLongitude, endNodeId,
 				startNodeId);
 		
 		return networkLink;

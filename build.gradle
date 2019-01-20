@@ -63,7 +63,7 @@ eclipse {
 wrapper {
     gradleVersion = '4.10'
 
-    def jvmOpts = "-Xmx8000m"
+    def jvmOpts = "-Xmx4000m"
     inputs.property("jvmOpts", jvmOpts)
     doLast {
         def optsEnvVar = "DEFAULT_JVM_OPTS"
@@ -73,14 +73,14 @@ wrapper {
 }
 
 test {
-	maxHeapSize = "8000m"
+	maxHeapSize = "4000m"
 	testLogging {
 		systemProperties 'logback.configurationFile' : new File('src/main/resources/logback.xml').absolutePath		
 		showStandardStreams = true		
 	}
 }
 bootRun {
-	maxHeapSize = "8000m"
+	maxHeapSize = "4000m"
 }
 
 task jaxb {

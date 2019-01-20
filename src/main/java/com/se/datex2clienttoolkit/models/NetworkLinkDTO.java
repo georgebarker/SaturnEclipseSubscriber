@@ -5,14 +5,13 @@ public class NetworkLinkDTO {
 	private long linkId;
 
 	private Float linkLength;
-	private Double linkCost;
+	private double linkCost = 1D;
 
 	private long lanes;
 
 	private String carriageway;
 	private String direction;
 	private String linkName;
-	private String linkType;
 
 	private long startNodeId;
 	private long endNodeId;
@@ -23,18 +22,16 @@ public class NetworkLinkDTO {
 	private double endNodeLatitude;
 	private double endNodeLongitude;
 	
-	public NetworkLinkDTO(Float linkLength, Double linkCost, long linkId, long lanes, String carriageway,
-			String direction, String linkName, String linkType, double endNodeLatitude, double endNodeLongitude,
+	public NetworkLinkDTO(Float linkLength, long linkId, long lanes, String carriageway,
+			String direction, String linkName, double endNodeLatitude, double endNodeLongitude,
 			double startNodeLatitude, double startNodeLongitude, long endNodeId, long startNodeId) {
 		super();
 		this.linkLength = linkLength;
-		this.linkCost = linkCost;
 		this.linkId = linkId;
 		this.lanes = lanes;
 		this.carriageway = carriageway;
 		this.direction = direction;
 		this.linkName = linkName;
-		this.linkType = linkType;
 		this.endNodeLatitude = endNodeLatitude;
 		this.endNodeLongitude = endNodeLongitude;
 		this.startNodeLatitude = startNodeLatitude;
@@ -51,15 +48,15 @@ public class NetworkLinkDTO {
 		this.linkLength = linkLength;
 	}
 
-	public Double getLinkCost() {
-		return linkCost;
-	}
+	public double getLinkCost() {
+        return linkCost;
+    }
 
-	public void setLinkCost(Double linkCost) {
-		this.linkCost = linkCost;
-	}
+    public void setLinkCost(double linkCost) {
+        this.linkCost = linkCost;
+    }
 
-	public long getLinkId() {
+    public long getLinkId() {
 		return linkId;
 	}
 
@@ -97,14 +94,6 @@ public class NetworkLinkDTO {
 
 	public void setLinkName(String linkName) {
 		this.linkName = linkName;
-	}
-
-	public String getLinkType() {
-		return linkType;
-	}
-
-	public void setLinkType(String linkType) {
-		this.linkType = linkType;
 	}
 
 	public double getEndNodeLatitude() {

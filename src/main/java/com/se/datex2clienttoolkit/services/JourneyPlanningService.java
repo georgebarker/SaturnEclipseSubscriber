@@ -129,7 +129,6 @@ public class JourneyPlanningService {
 		return point.getPointByCoordinates().getPointCoordinates().getLongitude();
 	}
 
-	// Verify these two are the right way around
 	private NwkNodeStaticData getStartNodeFromNwkLinkStaticData(NwkLinkStaticData networkLink) {
 		DistanceFromLinearElementReferent fromPointReferent = (DistanceFromLinearElementReferent) getLinearFromNetworkLink(
 				networkLink).getLinearWithinLinearElement().getFromPoint();
@@ -168,9 +167,6 @@ public class JourneyPlanningService {
 	}
 
 	private long getLanesFromNwkLinkStaticData(NwkLinkStaticData nwkLinkStaticData) {
-
-		// don't think this is right, there's always only one lane?!
-		// Do we even care though?
 		return getLinearFromNetworkLink(nwkLinkStaticData).getSupplementaryPositionalDescription()
 				.getAffectedCarriagewayAndLanes().size();
 	}

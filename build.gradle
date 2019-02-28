@@ -11,6 +11,7 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
         classpath("io.spring.gradle:dependency-management-plugin:${springDependencyManagementVersion}")
         classpath('commons-httpclient:commons-httpclient:3.1')
+        
     }
 }
 
@@ -18,16 +19,11 @@ apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management' 
-apply plugin: 'war'
+apply plugin: 'io.spring.dependency-management'
 
-version = '1.3'
+version = '1.0.0'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-
-war {
-    baseName = 'datex2-client-toolkit'    
-}
 
 repositories {
     mavenCentral()
@@ -81,6 +77,11 @@ test {
 }
 bootRun {
 	maxHeapSize = "4000m"
+}
+
+bootJar {
+	baseName = 'datex2-client-toolkit'
+	version = '1.0.0'
 }
 
 task jaxb {
